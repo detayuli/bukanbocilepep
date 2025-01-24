@@ -1,8 +1,15 @@
 using System.Collections;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class BubbleController : MonoBehaviour
 {
+    enum BubbleState
+    {
+        Idle,
+        Blowing
+    }
+    BubbleState state;
     [SerializeField] GameObject bubble;
     GameObject instantiatedBubble;
     [SerializeField] bool isBubbleThere = true;
@@ -42,18 +49,30 @@ public class BubbleController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            if (isBubbleThere)
+            if (isBubbleThere && state == BubbleState.Idle)
             {
                 if (blowChance < 100 && blowChance > 25)
                     blowChance -= 5;
             }
             else
             {
-                //Instantiate a new bubble as childern of thsi script gameobject
+                if(!isBubbleThere){
                 instantiatedBubble = Instantiate(bubble, spawnPoint.position, Quaternion.identity, transform);
                 isBubbleThere = true;
+                } else if (isBubbleThere && state == BubbleState.Blowing)
+                {
+                    ReleaseBubble();
+                }
             }
         }
+    }
+
+    private void ReleaseBubble()
+    {
+        //make the bubble floating in the air like a bubble
+        instantiatedBubble.GetComponent<Rigidbody>().useGravity = true;
+        instantiatedBubble.GetComponent<Rigidbody>().AddForce(Vector3.up * 10, ForceMode.Impulse);
+        isBubbleThere = false;
     }
 
     private IEnumerator ExplodeRepeatedly()
@@ -67,11 +86,13 @@ public class BubbleController : MonoBehaviour
 
     private void Blow()
     {
+        state = BubbleState.Blowing;
         instantiatedBubble.transform.localScale += new Vector3(bubbleSpeed, bubbleSpeed, bubbleSpeed);
     }
 
     private void Explode()
     {
+        state = BubbleState.Idle;
         var chance = Random.Range(0, 100);
         if (chance < blowChance)
         {
