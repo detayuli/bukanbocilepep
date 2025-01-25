@@ -482,7 +482,6 @@ GameObject:
   m_Component:
   - component: {fileID: 572238660}
   - component: {fileID: 572238663}
-  - component: {fileID: 572238664}
   - component: {fileID: 572238662}
   m_Layer: 5
   m_Name: dialogue
@@ -609,19 +608,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572238659}
   m_CullTransparentMesh: 1
---- !u!114 &572238664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572238659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dfb88518c4f91e43afe7f823206dd68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tmpText: {fileID: 572238662}
 --- !u!1 &684330775
 GameObject:
   m_ObjectHideFlags: 0
