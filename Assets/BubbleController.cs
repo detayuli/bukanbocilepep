@@ -19,6 +19,7 @@ public class BubbleController : MonoBehaviour
     private Coroutine explodeCoroutine;
     [SerializeField] Transform spawnPoint;
     [SerializeField] int PlayerControlled;
+    [SerializeField] KeyCode blow, kocok;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,19 +29,19 @@ public class BubbleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.K))
+        if (Input.GetKey(blow))
         {
             Blow();
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(blow))
         {
             if (explodeCoroutine == null)
             {
                 explodeCoroutine = StartCoroutine(ExplodeRepeatedly());
             }
         }
-        else if (Input.GetKeyUp(KeyCode.K))
+        else if (Input.GetKeyUp(blow))
         {
             if (explodeCoroutine != null)
             {
@@ -49,7 +50,7 @@ public class BubbleController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(kocok))
         {
             if (isBubbleThere && state == BubbleState.Idle)
             {
@@ -58,10 +59,12 @@ public class BubbleController : MonoBehaviour
             }
             else
             {
-                if(!isBubbleThere){
-                instantiatedBubble = Instantiate(bubble, spawnPoint.position, Quaternion.identity, transform);
-                isBubbleThere = true;
-                } else if (isBubbleThere && state == BubbleState.Blowing)
+                if (!isBubbleThere)
+                {
+                    instantiatedBubble = Instantiate(bubble, spawnPoint.position, Quaternion.identity, transform);
+                    isBubbleThere = true;
+                }
+                else if (isBubbleThere && state == BubbleState.Blowing)
                 {
                     ReleaseBubble();
                 }
@@ -72,7 +75,7 @@ public class BubbleController : MonoBehaviour
     private void ReleaseBubble()
     {
         //make the bubble floating in the air like a bubble
-        instantiatedBubble.GetComponent<Rigidbody>().useGravity = true;
+        instantiatedBubble.GetComponent<Rigidbody>().useGravity = false;
         instantiatedBubble.GetComponent<Rigidbody>().AddForce(Vector3.up * 10, ForceMode.Impulse);
         GameManager.instance.AddScore(PlayerControlled, Mathf.RoundToInt(instantiatedBubble.transform.localScale.x * 10));
         isBubbleThere = false;
