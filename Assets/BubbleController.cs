@@ -14,7 +14,7 @@ public class BubbleController : MonoBehaviour
     [SerializeField] GameObject bubble;
     GameObject instantiatedBubble;
     [SerializeField] bool isBubbleThere = true;
-    [SerializeField] float bubbleSpeed = 0.1f;
+    [SerializeField] float bubbleSpeed = 0.01f;
     [SerializeField] int blowChance = 80;
     private Coroutine explodeCoroutine;
     [SerializeField] Transform spawnPoint;
@@ -54,6 +54,7 @@ public class BubbleController : MonoBehaviour
         if (Input.GetKeyDown(kocok))
         {
             animator.Play("kocok");
+            animator.SetInteger("Post", 0);
             if (isBubbleThere && state == BubbleState.Idle)
             {
                 if (blowChance < 100 && blowChance > 25)
@@ -94,9 +95,9 @@ public class BubbleController : MonoBehaviour
 
     private void Blow()
     {
-        animator.Play("tiup");
+        animator.SetInteger("Post", 1);
         state = BubbleState.Blowing;
-        instantiatedBubble.transform.localScale += new Vector3(bubbleSpeed, bubbleSpeed, bubbleSpeed);
+        instantiatedBubble.transform.localScale += new Vector3(bubbleSpeed, bubbleSpeed, bubbleSpeed) * Time.deltaTime;
     }
 
     private void Explode()
