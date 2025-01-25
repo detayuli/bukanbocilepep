@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.AssemblyQualifiedNameParser;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class BubbleController : MonoBehaviour
     [SerializeField] int blowChance = 80;
     private Coroutine explodeCoroutine;
     [SerializeField] Transform spawnPoint;
+    [SerializeField] int PlayerControlled;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -72,6 +74,7 @@ public class BubbleController : MonoBehaviour
         //make the bubble floating in the air like a bubble
         instantiatedBubble.GetComponent<Rigidbody>().useGravity = true;
         instantiatedBubble.GetComponent<Rigidbody>().AddForce(Vector3.up * 10, ForceMode.Impulse);
+        GameManager.instance.AddScore(PlayerControlled, Mathf.RoundToInt(instantiatedBubble.transform.localScale.x * 10));
         isBubbleThere = false;
     }
 
