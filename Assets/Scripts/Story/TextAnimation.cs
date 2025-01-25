@@ -10,6 +10,7 @@ public class TypewriterEffect : MonoBehaviour
     private int currentDialogueIndex = 0; // Track current dialogue
     private Coroutine typingCoroutine; // For handling typing effect
     private bool isTyping = false; // Flag to check typing state
+    [SerializeField] GameObject nextButton;
 
     void Start()
     {
@@ -21,7 +22,8 @@ public class TypewriterEffect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isTyping) SkipTyping(); // Skip if still typing
-            else NextDialogue(); // Go to next dialogue
+            else
+            NextDialogue(); // Go to next dialogue
         }
     }
 
@@ -45,6 +47,7 @@ public class TypewriterEffect : MonoBehaviour
 
     void SkipTyping()
     {
+        nextButton.SetActive(true); 
         if (typingCoroutine != null) StopCoroutine(typingCoroutine); // Stop typing
         textComponent.text = dialogues[currentDialogueIndex]; // Show full dialogue
         isTyping = false;
@@ -54,6 +57,7 @@ public class TypewriterEffect : MonoBehaviour
     {
         if (currentDialogueIndex < dialogues.Length - 1) // If more dialogues exist
         {
+            nextButton.SetActive(false); 
             currentDialogueIndex++;
             StartTyping();
         }
