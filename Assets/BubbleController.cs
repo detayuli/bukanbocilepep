@@ -20,6 +20,7 @@ public class BubbleController : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] int PlayerControlled;
     [SerializeField] KeyCode blow, kocok;
+    [SerializeField] Animator animator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,11 +30,6 @@ public class BubbleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(blow))
-        {
-            Blow();
-        }
-
         if (Input.GetKeyDown(blow))
         {
             if (explodeCoroutine == null)
@@ -50,8 +46,14 @@ public class BubbleController : MonoBehaviour
             }
         }
 
+        if (Input.GetKey(blow))
+        {
+            Blow();
+        }
+
         if (Input.GetKeyDown(kocok))
         {
+            animator.Play("kocok");
             if (isBubbleThere && state == BubbleState.Idle)
             {
                 if (blowChance < 100 && blowChance > 25)
@@ -64,7 +66,7 @@ public class BubbleController : MonoBehaviour
                     instantiatedBubble = Instantiate(bubble, spawnPoint.position, Quaternion.identity, transform);
                     isBubbleThere = true;
                 }
-                else if (isBubbleThere && state == BubbleState.Blowing)
+                else if (isBubbleThere && state == BubbleState.Blowing && instantiatedBubble.transform.localScale.x > 1f)
                 {
                     ReleaseBubble();
                 }
@@ -92,6 +94,7 @@ public class BubbleController : MonoBehaviour
 
     private void Blow()
     {
+        animator.Play("tiup");
         state = BubbleState.Blowing;
         instantiatedBubble.transform.localScale += new Vector3(bubbleSpeed, bubbleSpeed, bubbleSpeed);
     }
@@ -99,6 +102,8 @@ public class BubbleController : MonoBehaviour
     private void Explode()
     {
         state = BubbleState.Idle;
+        if (instantiatedBubble.transform.localScale.x < 1f)
+            return;
         var chance = Random.Range(0, 100);
         if (chance < blowChance)
         {

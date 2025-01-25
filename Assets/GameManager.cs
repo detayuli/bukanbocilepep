@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private int Player1Score = 0, Player2Score = 0;
-    [SerializeField] private TextMeshProUGUI AriScoreText, RianScoreText, TimerText;
+    [SerializeField] private TextMeshProUGUI AndreScoreText, AzrilScoreText, TimerText;
     [SerializeField] private float timer = 60f; 
 
     public void AddScore(int playerNumber, int score)
@@ -13,12 +13,12 @@ public class GameManager : MonoBehaviour
         if (playerNumber == 1)
         {
             Player1Score += score;
-            AriScoreText.text = Player1Score.ToString();
+            AndreScoreText.text = Player1Score.ToString();
         }
         else if (playerNumber == 2)
         {
             Player2Score += score;
-            RianScoreText.text = Player2Score.ToString();
+            AzrilScoreText.text = Player2Score.ToString();
         }
     }
 
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         {
             timer = 0;
             Time.timeScale = 0;
-            HandleGameOver(); // Panggil fungsi untuk menangani akhir permainan
+            HandleGameOver();
         }
     }
 
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 
         // Pindah ke scene Game Over
         Time.timeScale = 1;
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(4);
     }
 
     public static GameManager instance;

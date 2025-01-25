@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TypewriterEffect : MonoBehaviour
 {
     public TextMeshProUGUI textComponent; // Text display
-    public float typingSpeed = 0.05f; // Typing speed
+    public float typingSpeed; // Typing speed
     [TextArea] public string[] dialogues; // Array of dialogues
     private int currentDialogueIndex = 0; // Track current dialogue
     private Coroutine typingCoroutine; // For handling typing effect
     private bool isTyping = false; // Flag to check typing state
     [SerializeField] GameObject nextButton;
+    [SerializeField] GameObject dialogue1, dialogue2;
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class TypewriterEffect : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
         isTyping = false;
+        nextButton.SetActive(true);
     }
 
     void SkipTyping()
@@ -57,13 +60,14 @@ public class TypewriterEffect : MonoBehaviour
     {
         if (currentDialogueIndex < dialogues.Length - 1) // If more dialogues exist
         {
-            nextButton.SetActive(false); 
+            dialogue2.SetActive(true);
+            dialogue1.SetActive(false); 
             currentDialogueIndex++;
             StartTyping();
         }
         else
         {
-            Debug.Log("All dialogues finished!");
+            SceneManager.LoadSceneAsync(2);
         }
     }
 }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
@@ -35,5 +36,15 @@ public class GameOverManager : MonoBehaviour
         {
             Debug.LogError("Winner data not found!");
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadSceneAsync(2);
+    }
+
+    public void BacktoMainMenu()
+    {
+        SceneManager.LoadSceneAsync(0);
     }
 }
