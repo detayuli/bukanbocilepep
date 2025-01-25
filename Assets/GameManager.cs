@@ -1,30 +1,35 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] int Player1Score, Player2Score;
-    [SerializeField] float timer;
+    [SerializeField] private int Player1Score = 0, Player2Score = 0;
+    [SerializeField] private TextMeshProUGUI AriScoreText, RianScoreText, TimerText;
+    [SerializeField] private float timer = 60f; 
+
     public void AddScore(int playerNumber, int score)
     {
         if (playerNumber == 1)
         {
             Player1Score += score;
+            AriScoreText.text = Player1Score.ToString();
         }
         else if (playerNumber == 2)
         {
             Player2Score += score;
+            RianScoreText.text = Player2Score.ToString();
         }
     }
+
     public int GetScore(int playerNumber)
     {
         if (playerNumber == 1)
         {
-            Debug.Log("Player 1 Score: " + Player1Score);
             return Player1Score;
         }
         else if (playerNumber == 2)
         {
-            Debug.Log("Player 2 Score: " + Player2Score);
             return Player2Score;
         }
         else
@@ -32,23 +37,60 @@ public class GameManager : MonoBehaviour
             return 0;
         }
     }
+
     public void SetTimer(float time)
     {
         timer = time;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        timer -= Time.deltaTime;
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            int minutes = Mathf.FloorToInt(timer / 60f);
+            int seconds = Mathf.FloorToInt(timer % 60f);
+            TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+        else
+        {
+            timer = 0;
+            Time.timeScale = 0;
+            HandleGameOver(); // Panggil fungsi untuk menangani akhir permainan
+        }
     }
-    //instance of the GameManager
+
+    private void HandleGameOver()
+    {
+        if (Player1Score == Player2Score)
+        {
+            PlayerPrefs.SetString("Winner", "Draw");
+            PlayerPrefs.SetInt("HighScore", Player1Score);
+        }
+        else if (Player1Score > Player2Score)
+        {
+            PlayerPrefs.SetString("Winner", "Player 1");
+            PlayerPrefs.SetInt("HighScore", Player1Score);
+        }
+        else
+        {
+            PlayerPrefs.SetString("Winner", "Player 2");
+            PlayerPrefs.SetInt("HighScore", Player2Score);
+        }
+
+        // Pindah ke scene Game Over
+        Time.timeScale = 1;
+        SceneManager.LoadSceneAsync(2);
+    }
+
     public static GameManager instance;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1676047832163110175
+--- !u!1 &704122644558761866
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5777560359081788501}
+  - component: {fileID: 8533217912932970470}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -16,22 +16,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5777560359081788501
+--- !u!4 &8533217912932970470
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676047832163110175}
+  m_GameObject: {fileID: 704122644558761866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7437343403590045005}
+  m_Father: {fileID: 5359271150917710283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3711294340944821894
+--- !u!1 &8308757556613757145
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,46 +39,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7437343403590045005}
-  - component: {fileID: 106949288904765864}
+  - component: {fileID: 5359271150917710283}
+  - component: {fileID: 1381990416668834490}
   m_Layer: 0
-  m_Name: Player2Controller 1
+  m_Name: 'Player2Controller '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7437343403590045005
+--- !u!4 &5359271150917710283
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3711294340944821894}
+  m_GameObject: {fileID: 8308757556613757145}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.15, y: 3.5, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.86, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5777560359081788501}
+  - {fileID: 8533217912932970470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &106949288904765864
+--- !u!114 &1381990416668834490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3711294340944821894}
+  m_GameObject: {fileID: 8308757556613757145}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2737fd06872d454a9d1e66c827ab6ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubble: {fileID: 706277154069865169, guid: 9cc07cc8674a3a3498faa654bf136553, type: 3}
+  bubble: {fileID: 706277154069865169, guid: da6c3da382f152346992c12eed0b4f83, type: 3}
   isBubbleThere: 1
   bubbleSpeed: 0.1
   blowChance: 50
-  spawnPoint: {fileID: 5777560359081788501}
-  PlayerControlled: 0
+  spawnPoint: {fileID: 8533217912932970470}
+  PlayerControlled: 2
+  blow: 260
+  kocok: 261
