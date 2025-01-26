@@ -6,46 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private int Player1Score = 0, Player2Score = 0;
     [SerializeField] private TextMeshProUGUI AndreScoreText, AzrilScoreText, TimerText;
-    [SerializeField] private float timer = 60f;
-    [SerializeField] private GameObject kota, maduraMart, gunungButton; // Backgrounds
-    [SerializeField] private GameObject starkota, starmaduraMart, stargunungButton; // Backgrounds
-
-    public static GameManager instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        RandomizeBackground(); // Call the randomizer at the start of the game
-    }
-
-    private void Update()
-    {
-        if (timer > 0)
-        {
-            timer -= Time.deltaTime;
-            int minutes = Mathf.FloorToInt(timer / 60f);
-            int seconds = Mathf.FloorToInt(timer % 60f);
-            TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        }
-        else
-        {
-            timer = 0;
-            Time.timeScale = 0;
-            HandleGameOver();
-        }
-    }
+    [SerializeField] private float timer = 60f; 
 
     public void AddScore(int playerNumber, int score)
     {
@@ -63,12 +24,40 @@ public class GameManager : MonoBehaviour
 
     public int GetScore(int playerNumber)
     {
-        return playerNumber == 1 ? Player1Score : (playerNumber == 2 ? Player2Score : 0);
+        if (playerNumber == 1)
+        {
+            return Player1Score;
+        }
+        else if (playerNumber == 2)
+        {
+            return Player2Score;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public void SetTimer(float time)
     {
         timer = time;
+    }
+
+    private void Update()
+    {
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            int minutes = Mathf.FloorToInt(timer / 60f);
+            int seconds = Mathf.FloorToInt(timer % 60f);
+            TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+        else
+        {
+            timer = 0;
+            Time.timeScale = 0;
+            HandleGameOver();
+        }
     }
 
     private void HandleGameOver()
@@ -89,48 +78,23 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", Player2Score);
         }
 
-        // Save the environment used for the GameOverMenu
-        PlayerPrefs.Save();
-
         // Pindah ke scene Game Over
         Time.timeScale = 1;
         SceneManager.LoadSceneAsync(5);
     }
 
-private void RandomizeBackground()
-{
-    // Hide all backgrounds first
-    kota.SetActive(false);
-    maduraMart.SetActive(false);
-    gunungButton.SetActive(false);
+    public static GameManager instance;
 
-    // Randomize background using srand-style logic
-    System.Random random = new System.Random(); // Simulate srand()
-    int randomBackground = random.Next(0, 3); // Generates 0, 1, or 2
-    string selectedEnvironment = "";
-
-    switch (randomBackground)
+    private void Awake()
     {
-        case 0:
-            kota.SetActive(true);
-            starkota.SetActive(true);
-            selectedEnvironment = "kota";
-            break;
-        case 1:
-            maduraMart.SetActive(true);
-            starmaduraMart.SetActive(true);
-            selectedEnvironment = "maduraMart";
-            break;
-        case 2:
-            gunungButton.SetActive(true);
-            stargunungButton.SetActive(true);
-            selectedEnvironment = "gunungButton";
-            break;
+        if (instance == null)
+        {
+            instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-
-    PlayerPrefs.SetString("SelectedEnvironment", selectedEnvironment);  // Save selected environment to PlayerPrefs
-    PlayerPrefs.Save(); // Ensure it gets saved
-    Debug.Log("Environment Selected: " + selectedEnvironment); // Debug to check if it is saved correctly
-}
-
 }

@@ -6,9 +6,6 @@ public class GameOverManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI HighScoreText;
     [SerializeField] private GameObject andreWin, azrilWin, draw;
-    [SerializeField] private GameObject kota, maduraMart, gunungButton; // Backgrounds
-    [SerializeField] private GameObject starkota, starmaduraMart, stargunungButton; // Backgrounds
-
 
     private void Start()
     {
@@ -39,8 +36,6 @@ public class GameOverManager : MonoBehaviour
         {
             Debug.LogError("Winner data not found!");
         }
-
-        ShowSelectedEnvironment();
     }
 
     public void RestartGame()
@@ -52,32 +47,4 @@ public class GameOverManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(0);
     }
-
-    private void ShowSelectedEnvironment()
-{
-    string environment = PlayerPrefs.GetString("SelectedEnvironment", "kota");
-    Debug.Log("Selected Environment: " + environment);  // Debug to check the retrieved value
-
-    // Set the background based on environment selection
-    if (environment == "kota")
-    {
-        kota.SetActive(true);
-        starkota.SetActive(true);
-    }
-    else if (environment == "maduraMart")
-    {
-        maduraMart.SetActive(true);
-        starmaduraMart.SetActive(true);
-    }
-    else if (environment == "gunungButton")
-    {
-        gunungButton.SetActive(true);
-        stargunungButton.SetActive(true);
-    }
-    else
-    {
-        Debug.LogError("Environment not found!");
-    }
-}
-
 }
