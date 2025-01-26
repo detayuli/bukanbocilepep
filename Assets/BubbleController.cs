@@ -1,7 +1,6 @@
 using System.Collections;
-using Unity.VisualScripting.AssemblyQualifiedNameParser;
-using UnityEditorInternal;
 using UnityEngine;
+using TMPro;
 
 public class BubbleController : MonoBehaviour
 {
@@ -23,6 +22,8 @@ public class BubbleController : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] GameObject body;
     [SerializeField] Material idle, blowing, kocoking;
+    [SerializeField] TextMeshProUGUI scoreTextTemp;
+    [SerializeField] float scoreMult = 1;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -49,6 +50,8 @@ public class BubbleController : MonoBehaviour
                 StopCoroutine(explodeCoroutine);
                 explodeCoroutine = null;
             }
+            scoreMult = 1;
+            scoreTextTemp.text = " ";
         }
 
         if (Input.GetKey(blow))
@@ -86,7 +89,7 @@ public class BubbleController : MonoBehaviour
         //make the bubble floating in the air like a bubble
         instantiatedBubble.GetComponent<Rigidbody>().useGravity = false;
         instantiatedBubble.GetComponent<Rigidbody>().AddForce(Vector3.up * 10, ForceMode.Impulse);
-        GameManager.instance.AddScore(PlayerControlled, Mathf.RoundToInt(instantiatedBubble.transform.localScale.x * 10));
+        GameManager.instance.AddScore(PlayerControlled, Mathf.RoundToInt(instantiatedBubble.transform.localScale.x * 10 * scoreMult));
         isBubbleThere = false;
     }
 
@@ -94,6 +97,7 @@ public class BubbleController : MonoBehaviour
     {
         while (true)
         {
+            scoreMult += 0.1f;
             Explode();
             yield return new WaitForSeconds(1f);
         }
@@ -105,6 +109,7 @@ public class BubbleController : MonoBehaviour
         body.GetComponent<Renderer>().material = blowing;
         state = BubbleState.Blowing;
         instantiatedBubble.transform.localScale += new Vector3(bubbleSpeed, bubbleSpeed, bubbleSpeed) * Time.deltaTime;
+        scoreTextTemp.text = Mathf.RoundToInt(instantiatedBubble.transform.localScale.x * 10).ToString() + " x" + scoreMult.ToString();
     }
 
     private void Explode()
