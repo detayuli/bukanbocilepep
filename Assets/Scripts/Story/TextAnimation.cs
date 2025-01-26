@@ -21,7 +21,7 @@ public class TypewriterEffect : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Submit"))
         {
             if (isTyping) SkipTyping(); // Skip if still typing
             else

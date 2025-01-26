@@ -3,25 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject playButton, creditsButton, title, creditPanel;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject playButton, creditsButton, title, creditPanel1, creditPanel2;
+    private int creditStage = 0; // 0 = Menu, 1 = Credit Panel 1, 2 = Credit Panel 2
 
-    // Update is called once per frame
     void Update()
     {
-        if(creditPanel)
+        if (Input.GetButtonDown("Submit"))
         {
-            if (Input.GetKeyDown(KeyCode.Space)) 
-            {
-                playButton.SetActive(true);
-                creditsButton.SetActive(true);
-                title.SetActive(true);
-                creditPanel.SetActive(false);
-            }
+            if (creditStage == 1) TogglePanels(creditPanel1, creditPanel2, 2); // Panel 1 → Panel 2
+            else if (creditStage == 2) TogglePanels(creditPanel2, null, 0);   // Panel 2 → Menu
         }
     }
 
@@ -32,9 +22,19 @@ public class MainMenu : MonoBehaviour
 
     public void CreditPanel()
     {
-        playButton.SetActive(false);
-        creditsButton.SetActive(false);
-        title.SetActive(false);
-        creditPanel.SetActive(true);
+        TogglePanels(null, creditPanel1, 1); // Menu → Panel 1
+    }
+
+    private void TogglePanels(GameObject from, GameObject to, int newStage)
+    {
+        if (from) from.SetActive(false);
+        if (to) to.SetActive(true);
+
+        bool isMainMenu = newStage == 0;
+        playButton.SetActive(isMainMenu);
+        creditsButton.SetActive(isMainMenu);
+        title.SetActive(isMainMenu);
+
+        creditStage = newStage;
     }
 }

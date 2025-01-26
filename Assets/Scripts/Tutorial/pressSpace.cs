@@ -1,4 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 public class PressSpace : MonoBehaviour
@@ -6,7 +9,7 @@ public class PressSpace : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // Detect space key press
+        if (Input.GetButtonDown("Submit"))
         {
             SceneManager.LoadSceneAsync(3);
         }
