@@ -479,8 +479,8 @@ MonoBehaviour:
   m_text: "CONTROL : \nPress B to shake the bottle and release the bubble\nPress
     A to blow bubble\n\nWARNING!\nThere is a chance that the bubble will burst\n\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5ed5e235e47b2f64aa3c899b47bdddcf, type: 2}
-  m_sharedMaterial: {fileID: -5777008741571630979, guid: 5ed5e235e47b2f64aa3c899b47bdddcf, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5702d0d21b86fc844a47674bee2135c3, type: 2}
+  m_sharedMaterial: {fileID: -8506162211845535527, guid: 5702d0d21b86fc844a47674bee2135c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -613,7 +613,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a7906f153e25da7479d9b4eb39789675, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 456a6a2c4765af645bdea5dbe93cba83, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

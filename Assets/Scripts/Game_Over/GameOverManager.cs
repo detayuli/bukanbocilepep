@@ -53,7 +53,7 @@ public class GameOverManager : MonoBehaviour
         SceneManager.LoadSceneAsync(0);
     }
 
-    private void ShowSelectedEnvironment()
+private void ShowSelectedEnvironment()
 {
     string environment = PlayerPrefs.GetString("SelectedEnvironment", "kota");
     Debug.Log("Selected Environment: " + environment);  // Debug to check the retrieved value
@@ -62,22 +62,20 @@ public class GameOverManager : MonoBehaviour
     if (environment == "kota")
     {
         kota.SetActive(true);
-        starkota.SetActive(true);
     }
     else if (environment == "maduraMart")
     {
         maduraMart.SetActive(true);
-        starmaduraMart.SetActive(true);
     }
     else if (environment == "gunungButton")
     {
         gunungButton.SetActive(true);
-        stargunungButton.SetActive(true);
     }
     else
     {
         Debug.LogError("Environment not found!");
     }
 }
+
 
 }

@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AndreScoreText, AzrilScoreText, TimerText;
     [SerializeField] private float timer = 60f;
     [SerializeField] private GameObject kota, maduraMart, gunungButton; // Backgrounds
-    [SerializeField] private GameObject starkota, starmaduraMart, stargunungButton; // Backgrounds
 
     public static GameManager instance;
 
@@ -113,17 +112,14 @@ private void RandomizeBackground()
     {
         case 0:
             kota.SetActive(true);
-            starkota.SetActive(true);
             selectedEnvironment = "kota";
             break;
         case 1:
             maduraMart.SetActive(true);
-            starmaduraMart.SetActive(true);
             selectedEnvironment = "maduraMart";
             break;
         case 2:
             gunungButton.SetActive(true);
-            stargunungButton.SetActive(true);
             selectedEnvironment = "gunungButton";
             break;
     }
@@ -132,5 +128,4 @@ private void RandomizeBackground()
     PlayerPrefs.Save(); // Ensure it gets saved
     Debug.Log("Environment Selected: " + selectedEnvironment); // Debug to check if it is saved correctly
 }
-
 }
