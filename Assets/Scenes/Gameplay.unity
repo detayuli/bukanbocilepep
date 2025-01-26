@@ -372,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 230482643}
     - target: {fileID: 8262054388870751458, guid: ff6b46a3b24a13c41b4c3597572f9d7c, type: 3}
       propertyPath: timer
-      value: 5
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 8262054388870751458, guid: ff6b46a3b24a13c41b4c3597572f9d7c, type: 3}
       propertyPath: starkota
@@ -10909,8 +10909,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5702d0d21b86fc844a47674bee2135c3, type: 2}
+  m_sharedMaterial: {fileID: -8506162211845535527, guid: 5702d0d21b86fc844a47674bee2135c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11469,8 +11469,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5702d0d21b86fc844a47674bee2135c3, type: 2}
+  m_sharedMaterial: {fileID: -8506162211845535527, guid: 5702d0d21b86fc844a47674bee2135c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
