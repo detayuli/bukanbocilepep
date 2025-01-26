@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d3e54759a83c884ba7f38c39362d8b9, type: 3}
+  m_Name: Kocok
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 08a0d0ef3c8ce1d4ba1db3f17af3bb57, type: 3}
+  audioMixerGroup: {fileID: -545708018932894396, guid: ab1891d32bb8bba42b7353e2fb8405cd, type: 2}
+  isBGM: 0
+  isAmbience: 0
+  volume: 1
