@@ -20,8 +20,8 @@ public class SoundPlayer : MonoBehaviour
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 1f;
         audioSource.rolloffMode = AudioRolloffMode.Linear;
-        audioSource.minDistance = 1f;
-        audioSource.maxDistance = 10f;
+        audioSource.minDistance = 0f;
+        audioSource.maxDistance = 50f;
 
         bgmSource.playOnAwake = false;
         bgmSource.loop = true;
