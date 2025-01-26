@@ -6,41 +6,28 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private int Player1Score = 0, Player2Score = 0;
     [SerializeField] private TextMeshProUGUI AndreScoreText, AzrilScoreText, TimerText;
-    [SerializeField] private float timer = 60f; 
+    [SerializeField] private float timer = 60f;
+    [SerializeField] private GameObject kota, maduraMart, gunungButton; // Backgrounds
+    [SerializeField] private GameObject starkota, starmaduraMart, stargunungButton; // Backgrounds
 
-    public void AddScore(int playerNumber, int score)
-    {
-        if (playerNumber == 1)
-        {
-            Player1Score += score;
-            AndreScoreText.text = Player1Score.ToString();
-        }
-        else if (playerNumber == 2)
-        {
-            Player2Score += score;
-            AzrilScoreText.text = Player2Score.ToString();
-        }
-    }
+    public static GameManager instance;
 
-    public int GetScore(int playerNumber)
+    private void Awake()
     {
-        if (playerNumber == 1)
+        if (instance == null)
         {
-            return Player1Score;
-        }
-        else if (playerNumber == 2)
-        {
-            return Player2Score;
+            instance = this;
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
-            return 0;
+            Destroy(gameObject);
         }
     }
 
-    public void SetTimer(float time)
+    private void Start()
     {
-        timer = time;
+        RandomizeBackground(); // Call the randomizer at the start of the game
     }
 
     private void Update()
@@ -58,6 +45,30 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
             HandleGameOver();
         }
+    }
+
+    public void AddScore(int playerNumber, int score)
+    {
+        if (playerNumber == 1)
+        {
+            Player1Score += score;
+            AndreScoreText.text = Player1Score.ToString();
+        }
+        else if (playerNumber == 2)
+        {
+            Player2Score += score;
+            AzrilScoreText.text = Player2Score.ToString();
+        }
+    }
+
+    public int GetScore(int playerNumber)
+    {
+        return playerNumber == 1 ? Player1Score : (playerNumber == 2 ? Player2Score : 0);
+    }
+
+    public void SetTimer(float time)
+    {
+        timer = time;
     }
 
     private void HandleGameOver()
@@ -78,23 +89,48 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", Player2Score);
         }
 
+        // Save the environment used for the GameOverMenu
+        PlayerPrefs.Save();
+
         // Pindah ke scene Game Over
         Time.timeScale = 1;
         SceneManager.LoadSceneAsync(5);
     }
 
-    public static GameManager instance;
+private void RandomizeBackground()
+{
+    // Hide all backgrounds first
+    kota.SetActive(false);
+    maduraMart.SetActive(false);
+    gunungButton.SetActive(false);
 
-    private void Awake()
+    // Randomize background using srand-style logic
+    System.Random random = new System.Random(); // Simulate srand()
+    int randomBackground = random.Next(0, 3); // Generates 0, 1, or 2
+    string selectedEnvironment = "";
+
+    switch (randomBackground)
     {
-        if (instance == null)
-        {
-            instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        case 0:
+            kota.SetActive(true);
+            starkota.SetActive(true);
+            selectedEnvironment = "kota";
+            break;
+        case 1:
+            maduraMart.SetActive(true);
+            starmaduraMart.SetActive(true);
+            selectedEnvironment = "maduraMart";
+            break;
+        case 2:
+            gunungButton.SetActive(true);
+            stargunungButton.SetActive(true);
+            selectedEnvironment = "gunungButton";
+            break;
     }
+
+    PlayerPrefs.SetString("SelectedEnvironment", selectedEnvironment);  // Save selected environment to PlayerPrefs
+    PlayerPrefs.Save(); // Ensure it gets saved
+    Debug.Log("Environment Selected: " + selectedEnvironment); // Debug to check if it is saved correctly
+}
+
 }
