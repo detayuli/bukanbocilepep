@@ -23,6 +23,8 @@ public class BubbleController : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] GameObject body;
     [SerializeField] Material idle, blowing, kocoking;
+
+    AudioManager audioManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -115,6 +117,7 @@ public class BubbleController : MonoBehaviour
         {
             //destroy the instantiated bubble
             Destroy(instantiatedBubble);
+            audioManager.PlaySFX(audioManager.meledak);
             isBubbleThere = false;
         }
         Debug.Log("Explode Invoked " + chance.ToString());
