@@ -21,13 +21,8 @@ public class BubbleController : MonoBehaviour
     [SerializeField] int PlayerControlled;
     [SerializeField] KeyCode blow, kocok;
     [SerializeField] Animator animator;
-
-    AudioManager audioManager;
-
-    void Awake()
-    {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-    }
+    [SerializeField] GameObject body;
+    [SerializeField] Material idle, blowing, kocoking;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,7 +34,6 @@ public class BubbleController : MonoBehaviour
     {
         if (Input.GetKeyDown(blow))
         {
-            audioManager.PlaySFX(audioManager.tiup);
             if (explodeCoroutine == null)
             {
                 explodeCoroutine = StartCoroutine(ExplodeRepeatedly());
@@ -47,6 +41,7 @@ public class BubbleController : MonoBehaviour
         }
         else if (Input.GetKeyUp(blow))
         {
+            body.GetComponent<Renderer>().material = idle;
             if (explodeCoroutine != null)
             {
                 StopCoroutine(explodeCoroutine);
@@ -62,8 +57,8 @@ public class BubbleController : MonoBehaviour
         if (Input.GetKeyDown(kocok))
         {
             animator.Play("kocok");
-            audioManager.PlaySFX(audioManager.kocok);
             animator.SetInteger("Post", 0);
+            body.GetComponent<Renderer>().material = kocoking;
             if (isBubbleThere && state == BubbleState.Idle)
             {
                 if (blowChance < 100 && blowChance > 25)
@@ -105,6 +100,7 @@ public class BubbleController : MonoBehaviour
     private void Blow()
     {
         animator.SetInteger("Post", 1);
+        body.GetComponent<Renderer>().material = blowing;
         state = BubbleState.Blowing;
         instantiatedBubble.transform.localScale += new Vector3(bubbleSpeed, bubbleSpeed, bubbleSpeed) * Time.deltaTime;
     }
@@ -112,7 +108,6 @@ public class BubbleController : MonoBehaviour
     private void Explode()
     {
         state = BubbleState.Idle;
-        audioManager.PlaySFX(audioManager.meledak);
         if (instantiatedBubble.transform.localScale.x < 1f)
             return;
         var chance = Random.Range(0, 100);
