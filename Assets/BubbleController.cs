@@ -21,6 +21,13 @@ public class BubbleController : MonoBehaviour
     [SerializeField] int PlayerControlled;
     [SerializeField] KeyCode blow, kocok;
     [SerializeField] Animator animator;
+
+    AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +39,7 @@ public class BubbleController : MonoBehaviour
     {
         if (Input.GetKeyDown(blow))
         {
+            audioManager.PlaySFX(audioManager.tiup);
             if (explodeCoroutine == null)
             {
                 explodeCoroutine = StartCoroutine(ExplodeRepeatedly());
@@ -54,6 +62,7 @@ public class BubbleController : MonoBehaviour
         if (Input.GetKeyDown(kocok))
         {
             animator.Play("kocok");
+            audioManager.PlaySFX(audioManager.kocok);
             animator.SetInteger("Post", 0);
             if (isBubbleThere && state == BubbleState.Idle)
             {
@@ -103,6 +112,7 @@ public class BubbleController : MonoBehaviour
     private void Explode()
     {
         state = BubbleState.Idle;
+        audioManager.PlaySFX(audioManager.meledak);
         if (instantiatedBubble.transform.localScale.x < 1f)
             return;
         var chance = Random.Range(0, 100);

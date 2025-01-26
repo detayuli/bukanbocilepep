@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial Scene.unity
     guid: 684021d134cfbc248a7b582512bd0527
   - enabled: 1
+    path: Assets/Scenes/Countdown.unity
+    guid: 8bd69a748843cc144aafa74b06124f3a
+  - enabled: 1
     path: Assets/Scenes/Gameplay.unity
     guid: ca916cc326ca2b142bdda30f6db25cbb
   - enabled: 1

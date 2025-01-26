@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 
         // Pindah ke scene Game Over
         Time.timeScale = 1;
-        SceneManager.LoadSceneAsync(4);
+        SceneManager.LoadSceneAsync(5);
     }
 
     public static GameManager instance;
