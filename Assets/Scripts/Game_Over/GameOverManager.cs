@@ -7,8 +7,6 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI HighScoreText;
     [SerializeField] private GameObject andreWin, azrilWin, draw;
     [SerializeField] private GameObject kota, maduraMart, gunungButton; // Backgrounds
-    [SerializeField] private GameObject starkota, starmaduraMart, stargunungButton; // Backgrounds
-
 
     private void Start()
     {
@@ -43,39 +41,54 @@ public class GameOverManager : MonoBehaviour
         ShowSelectedEnvironment();
     }
 
+    private void ShowSelectedEnvironment()
+    {
+        string environment = PlayerPrefs.GetString("SelectedEnvironment", "kota");
+        Debug.Log("Selected Environment: " + environment);  // Debug to check the retrieved value
+
+        // Set the background based on environment selection
+        if (environment == "kota")
+        {
+            kota.SetActive(true);
+        }
+        if (environment == "maduraMart")
+        {
+            maduraMart.SetActive(true);
+        }
+        if (environment == "gunungButton")
+        {
+            gunungButton.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Environment not found!");
+        }
+    }
+
+
+
+
     public void RestartGame()
     {
-        SceneManager.LoadSceneAsync(2);
+        // Restart the game (load the main game scene)
+        SceneManager.LoadSceneAsync(2); // Assuming the main game is scene 1
     }
 
     public void BacktoMainMenu()
     {
+        // Load the main menu scene (assuming main menu is scene 0)
         SceneManager.LoadSceneAsync(0);
     }
 
-private void ShowSelectedEnvironment()
-{
-    string environment = PlayerPrefs.GetString("SelectedEnvironment", "kota");
-    Debug.Log("Selected Environment: " + environment);  // Debug to check the retrieved value
+    // Call this function from the game scene when the game ends
+    public static void SetGameOverData(int highScore, string winner, string environment)
+    {
+        // Save game over data in PlayerPrefs
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.SetString("Winner", winner);
+        PlayerPrefs.SetString("SelectedEnvironment", environment);
 
-    // Set the background based on environment selection
-    if (environment == "kota")
-    {
-        kota.SetActive(true);
+        // Load the game over scene (assuming it's scene 2)
+        SceneManager.LoadSceneAsync(2); 
     }
-    else if (environment == "maduraMart")
-    {
-        maduraMart.SetActive(true);
-    }
-    else if (environment == "gunungButton")
-    {
-        gunungButton.SetActive(true);
-    }
-    else
-    {
-        Debug.LogError("Environment not found!");
-    }
-}
-
-
 }

@@ -59,29 +59,41 @@ public class BubbleController : MonoBehaviour
             Blow();
         }
 
-        if (Input.GetKeyDown(kocok))
+    if (Input.GetKeyDown(kocok))
+    {
+        animator.Play("kocok");
+        animator.SetInteger("Post", 0);
+        body.GetComponent<Renderer>().material = kocoking;
+
+        // Hentikan ExplodeRepeatedly jika sedang berjalan
+        if (explodeCoroutine != null)
         {
-            animator.Play("kocok");
-            animator.SetInteger("Post", 0);
-            body.GetComponent<Renderer>().material = kocoking;
-            if (isBubbleThere && state == BubbleState.Idle)
+            StopCoroutine(explodeCoroutine);
+            explodeCoroutine = null;
+        }
+
+        // Reset score multiplier
+        scoreMult = 1;
+        scoreTextTemp.text = " ";
+
+        if (isBubbleThere && state == BubbleState.Idle)
+        {
+            if (blowChance < 100 && blowChance > 25)
+                blowChance -= 5;
+        }
+        else
+        {
+            if (!isBubbleThere)
             {
-                if (blowChance < 100 && blowChance > 25)
-                    blowChance -= 5;
+                instantiatedBubble = Instantiate(bubble, spawnPoint.position, Quaternion.identity, transform);
+                isBubbleThere = true;
             }
-            else
+            else if (isBubbleThere && state == BubbleState.Blowing && instantiatedBubble.transform.localScale.x > 1f)
             {
-                if (!isBubbleThere)
-                {
-                    instantiatedBubble = Instantiate(bubble, spawnPoint.position, Quaternion.identity, transform);
-                    isBubbleThere = true;
-                }
-                else if (isBubbleThere && state == BubbleState.Blowing && instantiatedBubble.transform.localScale.x > 1f)
-                {
-                    ReleaseBubble();
-                }
+                ReleaseBubble();
             }
         }
+    }
     }
 
     private void ReleaseBubble()

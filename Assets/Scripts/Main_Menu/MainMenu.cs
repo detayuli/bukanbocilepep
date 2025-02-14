@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonUp("Submit"))
         {
             if (creditStage == 1) TogglePanels(creditPanel1, creditPanel2, 2); // Panel 1 → Panel 2
             else if (creditStage == 2) TogglePanels(creditPanel2, null, 0);   // Panel 2 → Menu
